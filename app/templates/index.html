@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نقشه سوپرمارکت‌ها - کامچین</title>
+    <!-- استایل‌های نقشه و ظاهر برنامه -->
+    <link rel="stylesheet" href="/static/css/leaflet.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <!-- بخش نمایش نوتیفیکیشن‌ها -->
+    <div id="notification-area"></div>
+
+    <!-- بخش بالایی: نقشه -->
+    <div class="map-container">
+        <div id="map"></div>
+    </div>
+
+    <!-- بخش پایینی: فرم‌ها و دکمه‌ها -->
+    <div class="controls-container">
+        <!-- کارت ثبت سوپرمارکت -->
+        <div class="card">
+            <h3 class="card-title">ثبت سوپرمارکت</h3>
+            <form id="marketForm">
+                <div class="form-group">
+                    <label for="marketName">نام سوپرمارکت:</label>
+                    <input type="text" id="marketName" placeholder="نام را وارد کنید" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="marketStatus">گرید (وضعیت):</label>
+                    <select id="marketStatus">
+                        <option value="green">سبز</option>
+                        <option value="yellow">زرد</option>
+                        <option value="red">قرمز</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>عرض (Lat):</label>
+                        <input type="text" id="marketLat" readonly placeholder="انتخاب از نقشه">
+                    </div>
+                    <div class="form-group">
+                        <label>طول (Lng):</label>
+                        <input type="text" id="marketLng" readonly placeholder="انتخاب از نقشه">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">ثبت روی نقشه</button>
+            </form>
+        </div>
+
+        <!-- کارت حذف سوپرمارکت -->
+        <div class="card">
+            <h3 class="card-title">مدیریت (حذف)</h3>
+            <form id="deleteForm">
+                <div class="form-group">
+                    <label for="deleteMarketName">نام سوپرمارکت:</label>
+                    <input type="text" id="deleteMarketName" placeholder="نام دقیق جهت حذف" required>
+                </div>
+                <button type="submit" class="btn btn-danger">حذف سوپرمارکت</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- اسکریپت‌ها -->
+    <script src="/static/js/leaflet.js"></script>
+    <script src="/static/js/map.js?v=4"></script>
+</body>
+</html>
