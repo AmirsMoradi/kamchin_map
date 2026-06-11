@@ -4,7 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from app.api import map_tile_router, supermarket_router
-from app.core.config import settings
+from app.core.config import BASE_DIR, settings
 from app.db.base import Base
 from app.db.database import engine
 
@@ -12,8 +12,12 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Kamchin Map API")
 
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
-templates = Jinja2Templates(directory="app/templates")
+app.mount(
+    "/static",
+    StaticFiles(directory=BASE_DIR / "app" / "static"),
+    name="static",
+)
+templates = Jinja2Templates(directory=BASE_DIR / "app" / "templates")
 
 app.include_router(supermarket_router.router, prefix=settings.api_prefix)
 app.include_router(map_tile_router.router, prefix=settings.api_prefix)

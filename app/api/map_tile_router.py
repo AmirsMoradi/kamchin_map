@@ -34,7 +34,13 @@ def _validate_tile(z: int, x: int, y: int) -> None:
 
 
 def _tile_cache_path(provider: str, z: int, x: int, y: int) -> Path:
-    return settings.map_tile_cache_dir / provider / str(z) / str(x) / f"{y}.png"
+    return (
+        settings.resolved_map_tile_cache_dir
+        / provider
+        / str(z)
+        / str(x)
+        / f"{y}.png"
+    )
 
 
 def _read_cached_tile(provider: str, z: int, x: int, y: int) -> bytes | None:
@@ -141,7 +147,7 @@ def get_map_health() -> dict[str, object]:
     return {
         "default_provider": settings.map_default_provider,
         "cache_enabled": settings.map_tile_cache_enabled,
-        "cache_dir": str(settings.map_tile_cache_dir),
+        "cache_dir": str(settings.resolved_map_tile_cache_dir),
         "mapir_configured": bool(settings.mapir_api_key),
         "http_proxy_configured": bool(settings.map_http_proxy),
         "https_proxy_configured": bool(settings.map_https_proxy),

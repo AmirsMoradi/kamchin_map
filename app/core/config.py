@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     db_name: str = Field(alias="DB_NAME")
 
     map_default_provider: Literal["mapir", "osm"] = Field(
-        default="mapir",
+        default="osm",
         alias="MAP_DEFAULT_PROVIDER",
     )
     mapir_api_key: str | None = Field(default=None, alias="MAPIR_API_KEY")
@@ -57,6 +57,13 @@ class Settings(BaseSettings):
         if self.map_https_proxy:
             proxies["https"] = self.map_https_proxy
         return proxies or None
+
+    @property
+    def resolved_map_tile_cache_dir(self) -> Path:
+        path = self.map_tile_cache_dir.expanduser()
+        if not path.is_absolute():
+            path = BASE_DIR / path
+        return path.resolve()
 
 
 @lru_cache(maxsize=1)
